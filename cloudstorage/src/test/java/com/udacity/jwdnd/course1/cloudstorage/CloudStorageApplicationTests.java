@@ -1,5 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.pageobjects.LoginPage;
+import com.udacity.jwdnd.course1.cloudstorage.pageobjects.SigninPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,8 @@ class CloudStorageApplicationTests {
 	private int port;
 
 	private WebDriver driver;
+	private LoginPage loginPage;
+	private SigninPage signinPage;
 
 	@BeforeAll
 	static void beforeAll() {
@@ -36,6 +40,8 @@ class CloudStorageApplicationTests {
 	public void getLoginPage() {
 		driver.get("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
+
+
 	}
 
 }
