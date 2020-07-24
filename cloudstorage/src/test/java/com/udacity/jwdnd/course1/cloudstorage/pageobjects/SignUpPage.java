@@ -50,9 +50,16 @@ public class SignUpPage {
 
     private WebDriverWait wait;
 
+    private WebDriver driver;
+
     public SignUpPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, 1);
+    }
+
+    public void goToSignUpPage(int port) {
+        driver.get("http://localhost:" + port + "/signup");
     }
 
     public void signUp(User user) {
@@ -64,5 +71,57 @@ public class SignUpPage {
         passwordInput.sendKeys(user.getPassword());
 
         submitButton.click();
+    }
+
+    public WebElement getBackToLoginLink() {
+        return backToLoginLink;
+    }
+
+    public WebElement getSignUpHeader() {
+        return signUpHeader;
+    }
+
+    public WebElement getSuccessMessage() {
+        return successMessage;
+    }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
+
+    public WebElement getFirstNameLabel() {
+        return firstNameLabel;
+    }
+
+    public WebElement getFirstNameInput() {
+        return firstNameInput;
+    }
+
+    public WebElement getLastNameLabel() {
+        return lastNameLabel;
+    }
+
+    public WebElement getLastNameInput() {
+        return lastNameInput;
+    }
+
+    public WebElement getUsernameLabel() {
+        return usernameLabel;
+    }
+
+    public WebElement getUsenameInput() {
+        return usenameInput;
+    }
+
+    public WebElement getPasswordLabel() {
+        return passwordLabel;
+    }
+
+    public WebElement getPasswordInput() {
+        return passwordInput;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
     }
 }

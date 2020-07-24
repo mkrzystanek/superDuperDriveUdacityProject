@@ -38,9 +38,16 @@ public class LoginPage {
 
     private WebDriverWait wait;
 
+    private WebDriver driver;
+
     public LoginPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, 1);
+    }
+
+    public void goToLoginPage(int port) {
+        this.driver.get("http://localhost:" + port + "/login");
     }
 
     public void logIn(User user) {
@@ -50,5 +57,41 @@ public class LoginPage {
         passwordInput.sendKeys(user.getPassword());
 
         submitButton.click();
+    }
+
+    public WebElement getLoginHeader() {
+        return loginHeader;
+    }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
+
+    public WebElement getLogoutMessage() {
+        return logoutMessage;
+    }
+
+    public WebElement getUsernameLabel() {
+        return usernameLabel;
+    }
+
+    public WebElement getUsernameInput() {
+        return usernameInput;
+    }
+
+    public WebElement getPasswordLabel() {
+        return passwordLabel;
+    }
+
+    public WebElement getPasswordInput() {
+        return passwordInput;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public WebElement getSignUpLink() {
+        return signUpLink;
     }
 }
