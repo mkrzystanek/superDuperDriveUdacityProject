@@ -73,6 +73,11 @@ public class SignUpPage {
         submitButton.click();
     }
 
+    public void gotToLogin() {
+        wait.until(driver -> backToLoginLink.isDisplayed());
+        backToLoginLink.click();
+    }
+
     public WebElement getBackToLoginLink() {
         return backToLoginLink;
     }

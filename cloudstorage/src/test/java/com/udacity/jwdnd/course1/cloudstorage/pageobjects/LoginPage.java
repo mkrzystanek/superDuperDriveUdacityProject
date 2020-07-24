@@ -43,15 +43,19 @@ public class LoginPage {
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, 1);
+        wait = new WebDriverWait(driver, 3);
     }
 
     public void goToLoginPage(int port) {
         this.driver.get("http://localhost:" + port + "/login");
     }
 
-    public void logIn(User user) {
+    public void waitForLoaded() {
         wait.until(driver -> loginHeader.isDisplayed());
+    }
+
+    public void logIn(User user) {
+        waitForLoaded();
 
         usernameInput.sendKeys(user.getUsername());
         passwordInput.sendKeys(user.getPassword());
