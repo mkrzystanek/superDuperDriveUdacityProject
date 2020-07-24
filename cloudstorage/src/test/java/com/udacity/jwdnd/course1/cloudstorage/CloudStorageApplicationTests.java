@@ -1,7 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
 import com.udacity.jwdnd.course1.cloudstorage.pageobjects.LoginPage;
-import com.udacity.jwdnd.course1.cloudstorage.pageobjects.SigninPage;
+import com.udacity.jwdnd.course1.cloudstorage.pageobjects.SignUpPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +17,7 @@ class CloudStorageApplicationTests {
 
 	private WebDriver driver;
 	private LoginPage loginPage;
-	private SigninPage signinPage;
+	private SignUpPage signUpPage;
 
 	@BeforeAll
 	static void beforeAll() {
