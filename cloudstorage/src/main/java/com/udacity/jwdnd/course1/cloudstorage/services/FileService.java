@@ -1,9 +1,11 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
 import com.udacity.jwdnd.course1.cloudstorage.exceptions.FileException;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +32,9 @@ public class FileService {
         try {
             String fileName = Objects.requireNonNull(file.getOriginalFilename());
             Files.copy(file.getInputStream(), this.root.resolve(fileName));
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
+            throw new FileException("Failed to retrieve file name!", e);
+        } catch (IOException e) {
             throw new FileException("Failed to store the file on server!", e);
         }
     }
@@ -38,10 +42,25 @@ public class FileService {
     public List<String> getAllFileNames() {
         try (Stream<Path> walk = Files.walk(this.root)) {
             return walk.filter(Files::isRegularFile)
+                    .map(Path::getFileName)
                     .map(Path::toString)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new FileException("Failed to load saved files!", e);
         }
+    }
+
+    public InputStreamResource view(String fileName) {
+        Path file = this.root.resolve(fileName);
+        if (Files.exists(file)) {
+            try {
+                return new InputStreamResource(new FileInputStream(file.toFile()));
+            } catch (IOException e) {
+                throw new FileException("Failed to read file!", e);
+            }
+        } else {
+            throw new FileException(String.format("File %s does not exist", fileName));
+        }
+
     }
 }
