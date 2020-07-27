@@ -5,6 +5,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -67,6 +69,11 @@ public class FileService {
     }
 
     public void delete(String fileName) {
-
+        File file = this.root.resolve(fileName).toFile();
+        if (file.delete()) {
+            Logger.getGlobal().info("File deleted successfully");
+        } else {
+            Logger.getGlobal().severe(String.format("Failed to delete file: %s", fileName));
+        }
     }
 }
