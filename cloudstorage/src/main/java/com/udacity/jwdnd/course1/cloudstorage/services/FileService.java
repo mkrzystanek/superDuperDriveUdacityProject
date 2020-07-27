@@ -22,7 +22,9 @@ public class FileService {
 
     public void initialize() {
         try {
-            Files.createDirectory(root);
+            if (Files.notExists(root)) {
+                Files.createDirectory(root);
+            }
         } catch (IOException e) {
             throw new FileException("Failed to initialize upload directory!", e);
         }
@@ -61,6 +63,10 @@ public class FileService {
         } else {
             throw new FileException(String.format("File %s does not exist", fileName));
         }
+
+    }
+
+    public void delete(String fileName) {
 
     }
 }
