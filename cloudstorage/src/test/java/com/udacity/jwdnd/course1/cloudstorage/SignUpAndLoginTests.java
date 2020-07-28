@@ -85,6 +85,8 @@ public class SignUpAndLoginTests extends CloudStorageApplicationTests {
 
     @Test
     public void unauthorizedAccess() {
-        assertTrue(false, "Missing test implementation.");
+        homePage.goToHomePage(port);
+        assertEquals("Login", driver.getTitle(),
+                "User was not redirected to login page after trying to access 'home' page unauthorized!");
     }
 }
