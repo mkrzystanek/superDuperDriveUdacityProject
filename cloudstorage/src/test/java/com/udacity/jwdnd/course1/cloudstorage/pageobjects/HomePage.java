@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class HomePage {
 
     @FindBy(id = "logout-button")
@@ -13,6 +15,24 @@ public class HomePage {
 
     @FindBy(id = "nav-files-tab")
     private WebElement filesTab;
+
+    @FindBy(id = "file-upload-label")
+    private WebElement fileUploadLabel;
+
+    @FindBy(id = "fileUpload")
+    private WebElement fileUploadInput;
+
+    @FindBy(id = "file-submit-button")
+    private WebElement fileUploadButton;
+
+    @FindBy(id = "view-file-button")
+    private WebElement viewFileButton;
+
+    @FindBy(id = "delete-file-button")
+    private WebElement deleteFileButton;
+
+    @FindBy(id = "file-list")
+    private List<WebElement> files;
 
     private WebDriver driver;
 
@@ -34,5 +54,33 @@ public class HomePage {
 
     public WebElement getLogoutButton() {
         return logoutButton;
+    }
+
+    public WebElement getFilesTab() {
+        return filesTab;
+    }
+
+    public WebElement getFileUploadLabel() {
+        return fileUploadLabel;
+    }
+
+    public WebElement getFileUploadInput() {
+        return fileUploadInput;
+    }
+
+    public WebElement getFileUploadButton() {
+        return fileUploadButton;
+    }
+
+    public WebElement getViewFileButton() {
+        return viewFileButton;
+    }
+
+    public WebElement getDeleteFileButton() {
+        return deleteFileButton;
+    }
+
+    public List<WebElement> getFiles() {
+        return files;
     }
 }
