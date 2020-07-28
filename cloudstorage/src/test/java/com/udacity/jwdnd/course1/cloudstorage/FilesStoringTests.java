@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FilesStoringTests extends CloudStorageApplicationTests {
 
-    private User user;
     private final Path pathToTestFiles =  Paths.get("testFiles");
     private final Path fileUploadFolder =  Paths.get("uploads");
     private final String testFileName = "testFile.txt";
@@ -31,7 +31,7 @@ public class FilesStoringTests extends CloudStorageApplicationTests {
     public void beforeEach() {
         super.beforeEach();
 
-        user = new UserBuilder()
+        User user = new UserBuilder()
                 .withFirstName("Foster")
                 .withLastName("Kane")
                 .withUserName("Citizen")
@@ -70,6 +70,11 @@ public class FilesStoringTests extends CloudStorageApplicationTests {
         List<WebElement> uploadedFiles = homePage.getFiles();
         assertEquals(1, uploadedFiles.size(), "There was an incorrect number of uploaded files displayed!");
         assertTrue(uploadedFiles.get(0).getText().contains(fileToUpload.getName()), "Incorrect file name was displayed!");
+
+        homePage.getDeleteFileButton().click();
+        uploadedFiles = homePage.getFiles();
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        assertEquals(0, uploadedFiles.size(), "Uploaded file is still visible after 'delete' button was clicked!");
     }
 
     private File createTestFile() {

@@ -54,7 +54,7 @@
                                         <form action="#" method="GET" th:action="@{/home/{file}(file=${file})}">
                                             <button type="submit" id="view-file-button" class="btn btn-success">View</button>
                                         </form>
-                                        <form action="#" method="DELETE" th:action="@{/home/{file}(file=${file})}">
+                                        <form action="#" method="POST" th:action="@{/home/{file}(file=${file})}">
                                             <button type="submit" id="delete-file-button" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
