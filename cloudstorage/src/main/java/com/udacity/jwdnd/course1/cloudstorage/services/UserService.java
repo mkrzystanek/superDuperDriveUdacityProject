@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.mappers.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.model.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -37,5 +38,10 @@ public class UserService {
                 .build();
 
         return userMapper.createUser(newUser);
+    }
+
+    public Integer getActiveUserId(Authentication auth) {
+        User activeUser = getUser(auth.getName());
+        return activeUser.getUserid();
     }
 }
