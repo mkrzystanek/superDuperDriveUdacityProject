@@ -1,9 +1,11 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -23,42 +25,39 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/home")
 public class HomeController {
 
+    @Autowired
     FileService fileService;
+    @Autowired
     NoteService noteService;
+    @Autowired
     UserService userService;
-
-    public HomeController(FileService fileService, NoteService noteService, UserService userService) {
-        this.fileService = fileService;
-        this.noteService = noteService;
-        this.userService  = userService;
-        fileService.initialize();
-    }
 
     @GetMapping
     public String getHome(Model model, Authentication auth) {
-        model.addAttribute("files", fileService.getAllFileNames());
-        model.addAttribute("notes", noteService.getAllNoteTitles(userService.getActiveUserId(auth)));
+        model.addAttribute("files", fileService.getAllFiles(userService.getActiveUserId(auth)));
+        model.addAttribute("notes", noteService.getAllNotes(userService.getActiveUserId(auth)));
         return "home";
     }
 
     @PostMapping("/file")
     public String uploadFile(@RequestParam("fileUpload") MultipartFile file, Authentication auth, Model model) {
-        fileService.save(file);
+        fileService.save(file, userService.getActiveUserId(auth));
         return getHome(model, auth);
     }
 
-    @GetMapping("/file/{filename}")
-    public ResponseEntity<Resource> viewFile(@PathVariable("filename") String fileName) {
-        InputStreamResource resource = fileService.view(fileName);
+    @GetMapping("/file/{fileid}")
+    public ResponseEntity<Resource> viewFile(@PathVariable("fileid") Integer fileId) {
+        File file = fileService.getFile(fileId);
+        InputStreamResource resource = fileService.view(file);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
 
-    @PostMapping("/file/{filename}")
-    public String deleteFile(@PathVariable("filename") String fileName, Authentication auth, Model model) {
-        fileService.delete(fileName);
+    @PostMapping("/file/{fileid}")
+    public String deleteFile(@PathVariable("fileid") Integer fileId, Authentication auth, Model model) {
+        fileService.delete(fileId);
         return getHome(model, auth);
     }
 

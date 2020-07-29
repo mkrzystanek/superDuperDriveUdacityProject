@@ -13,7 +13,7 @@ public class NoteService {
     @Autowired
     private NoteMapper noteMapper;
 
-    public List<Note> getAllNoteTitles(Integer userId) {
+    public List<Note> getAllNotes(Integer userId) {
         return noteMapper.getAllNotes(userId);
     }
 

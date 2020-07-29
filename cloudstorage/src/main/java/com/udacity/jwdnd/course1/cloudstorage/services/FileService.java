@@ -1,79 +1,53 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
 import com.udacity.jwdnd.course1.cloudstorage.exceptions.FileException;
+import com.udacity.jwdnd.course1.cloudstorage.mappers.FileMapper;
+import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.udacity.jwdnd.course1.cloudstorage.model.FileBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class FileService {
 
-    private final Path root = Paths.get("uploads");
+    @Autowired
+    private FileMapper fileMapper;
 
-    public void initialize() {
+    public void save(MultipartFile multipartFile, Integer userId) {
         try {
-            if (Files.notExists(root)) {
-                Files.createDirectory(root);
-            }
-        } catch (IOException e) {
-            throw new FileException("Failed to initialize upload directory!", e);
-        }
-    }
+            File file = new FileBuilder()
+                    .withFileName(multipartFile.getOriginalFilename())
+                    .withContentType(multipartFile.getContentType())
+                    .withFileSize(String.valueOf(multipartFile.getSize()))
+                    .withUserId(userId)
+                    .withFileData(multipartFile.getBytes())
+                    .build();
 
-    public void save(MultipartFile file) {
-        try {
-            String fileName = Objects.requireNonNull(file.getOriginalFilename());
-            Files.copy(file.getInputStream(), this.root.resolve(fileName));
-        } catch (NullPointerException e) {
-            throw new FileException("Failed to retrieve file name!", e);
+            fileMapper.saveFile(file);
         } catch (IOException e) {
             throw new FileException("Failed to store the file on server!", e);
         }
     }
 
-    public List<String> getAllFileNames() {
-        try (Stream<Path> walk = Files.walk(this.root)) {
-            return walk.filter(Files::isRegularFile)
-                    .map(Path::getFileName)
-                    .map(Path::toString)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new FileException("Failed to load saved files!", e);
-        }
+    public List<File> getAllFiles(Integer userId) {
+        return fileMapper.getAllFiles(userId);
     }
 
-    public InputStreamResource view(String fileName) {
-        Path file = this.root.resolve(fileName);
-        if (Files.exists(file)) {
-            try {
-                return new InputStreamResource(new FileInputStream(file.toFile()));
-            } catch (IOException e) {
-                throw new FileException("Failed to read file!", e);
-            }
-        } else {
-            throw new FileException(String.format("File %s does not exist", fileName));
-        }
-
+    public File getFile(Integer fileId) {
+        return fileMapper.getFile(fileId);
     }
 
-    public void delete(String fileName) {
-        File file = this.root.resolve(fileName).toFile();
-        if (file.delete()) {
-            Logger.getGlobal().info("File deleted successfully");
-        } else {
-            Logger.getGlobal().severe(String.format("Failed to delete file: %s", fileName));
-        }
+    public InputStreamResource view(File file) {
+        return new InputStreamResource(new ByteArrayInputStream(file.getFiledata()));
+    }
+
+    public void delete(Integer fileId) {
+        fileMapper.deleteFile(fileId);
     }
 }
