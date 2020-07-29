@@ -71,9 +71,9 @@ public class FilesStoringTests extends CloudStorageApplicationTests {
         assertEquals(1, uploadedFiles.size(), "There was an incorrect number of uploaded files displayed!");
         assertTrue(uploadedFiles.get(0).getText().contains(fileToUpload.getName()), "Incorrect file name was displayed!");
 
-        homePage.getDeleteFileButton().click();
-        uploadedFiles = homePage.getFiles();
+        homePage.getDeleteFileButton().submit();
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        uploadedFiles = homePage.getFiles();
         assertEquals(0, uploadedFiles.size(), "Uploaded file is still visible after 'delete' button was clicked!");
     }
 
