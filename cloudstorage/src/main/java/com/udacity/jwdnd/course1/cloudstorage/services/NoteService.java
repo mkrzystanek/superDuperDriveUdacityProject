@@ -20,4 +20,8 @@ public class NoteService {
     public int addNote(Note note) {
         return noteMapper.addNote(note);
     }
+
+    public void deleteNote(Integer noteId) {
+        noteMapper.deleteNote(noteId);
+    }
 }

@@ -67,4 +67,10 @@ public class HomeController {
         noteService.addNote(note);
         return getHome(model, auth);
     }
+
+    @PostMapping("/note/{noteid}")
+    public String deleteNote(@PathVariable("noteid") Integer noteId, Authentication auth, Model model) {
+        noteService.deleteNote(noteId);
+        return getHome(model, auth);
+    }
 }

@@ -82,7 +82,9 @@
                                     <tr th:if="${note}" th:each="note: ${notes}" id="note-list">
                                         <td>
                                             <button id="edit-note" type="button" class="btn btn-success">Edit</button>
-                                            <a id="delete-note" class="btn btn-danger">Delete</a>
+                                            <form action="#" method="POST" th:action="@{/home/note/{noteid}(noteid=${note.getNoteid()})}">
+                                                <button id="delete-note" class="btn btn-danger">Delete</button>
+                                            </form>
                                         </td>
                                         <th id="uploaded-note-title" th:text="${note.getNotetitle()}" scope="row">Example Note Title</th>
                                         <td id="uploaded-note-desc" th:text="${note.getNotedescription()}">Example Note Description </td>
