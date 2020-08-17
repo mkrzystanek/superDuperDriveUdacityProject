@@ -85,6 +85,41 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         assertEquals(0, homePage.getNotes().size(), "Deleted note was displayed!");
     }
 
+    @Test
+    public void editNoteTest() throws InterruptedException {
+        String title = "My Note";
+        String description = "Example text";
+
+        goToNotePanel();
+        homePage.getAddNoteButton().click();
+        homePage.waitForNoteModalLoaded();
+        homePage.getNewNoteTitleInput().sendKeys(title);
+        homePage.getNewNoteDescriptionInput().sendKeys(description);
+        homePage.getSaveNewNoteButton().click();
+        goToNotePanel();
+
+        homePage.getEditNoteButton().click();
+        homePage.waitForNoteModalLoaded();
+
+        assertTrue(homePage.getNewNoteTitleInput().isDisplayed(), "Edited note title was not displayed!");
+        assertTrue(homePage.getNewNoteTitleInput().getAttribute("value").contains(title), "Incorrect edited note title was displayed!");
+        assertTrue(homePage.getNewNoteDescriptionInput().isDisplayed(), "Edited note description was not displayed!");
+        assertTrue(homePage.getNewNoteDescriptionInput().getAttribute("value").contains(description), "Incorrect edited note description was displayed!");
+
+        String newTitle = "Updated Note";
+        String newDescription = "Updated Description";
+
+        homePage.getNewNoteTitleInput().sendKeys(newTitle);
+        homePage.getNewNoteDescriptionInput().sendKeys(newDescription);
+        homePage.getSaveNewNoteButton().click();
+        goToNotePanel();
+
+        assertTrue(homePage.getUploadedNoteTitle().isDisplayed(), "Updated note title was not displayed!");
+        assertTrue(homePage.getUploadedNoteDescription().isDisplayed(), "Uploaded note description was not displayed!");
+        assertTrue(homePage.getUploadedNoteTitle().getText().contains(newTitle), "Updated note title was incorrect!");
+        assertTrue(homePage.getUploadedNoteDescription().getText().contains(newDescription), "Updated note description was incorrect!");
+    }
+
     private void goToNotePanel() {
         homePage.goToHomePage(port);
         homePage.waitForLoaded();
