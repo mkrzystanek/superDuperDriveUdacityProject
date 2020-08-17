@@ -82,6 +82,9 @@ public class HomePage {
     @FindBy(id = "delete-note")
     private WebElement deleteNoteButton;
 
+    @FindBy(id = "note-list")
+    private List<WebElement> notes;
+
     private WebDriver driver;
 
     private WebDriverWait wait;
@@ -202,5 +205,9 @@ public class HomePage {
 
     public WebElement getDeleteNoteButton() {
         return deleteNoteButton;
+    }
+
+    public List<WebElement> getNotes() {
+        return notes;
     }
 }

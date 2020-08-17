@@ -5,6 +5,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NoteStorageTests extends CloudStorageApplicationTests {
@@ -66,6 +67,22 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         assertTrue(homePage.getUploadedNoteDescription().isDisplayed(), "Uploaded note description was not displayed!");
         assertTrue(homePage.getEditNoteButton().isDisplayed(), "Edit note button was not displayed!");
         assertTrue(homePage.getDeleteNoteButton().isDisplayed(), "Delete note button was not displayed!");
+    }
+
+    @Test
+    public void deleteNoteTest() {
+        goToNotePanel();
+        homePage.getAddNoteButton().click();
+        homePage.waitForNoteModalLoaded();
+        homePage.getNewNoteTitleInput().sendKeys("My Note");
+        homePage.getNewNoteDescriptionInput().sendKeys("Example text");
+        homePage.getSaveNewNoteButton().click();
+        goToNotePanel();
+
+        homePage.getDeleteNoteButton().submit();
+        goToNotePanel();
+
+        assertEquals(0, homePage.getNotes().size(), "Deleted note was displayed!");
     }
 
     private void goToNotePanel() {
