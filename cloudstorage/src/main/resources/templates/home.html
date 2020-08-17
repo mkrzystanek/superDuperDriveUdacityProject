@@ -81,8 +81,12 @@
                                 <tbody>
                                     <tr th:if="${note}" th:each="note: ${notes}" id="note-list">
                                         <td>
-                                            <button id="edit-note" type="button" class="btn btn-success">Edit</button>
-                                            <form action="#" method="POST" th:action="@{/home/note/{noteid}(noteid=${note.getNoteid()})}">
+                                            <button id="edit-note" type="button" class="btn btn-success"
+                                                    th:data1="${note.getNoteid()}"
+                                                    th:data2="${note.getNotetitle()}"
+                                                    th:data3="${note.getNotedescription()}"
+                                                    th:onclick="javascript:showNoteModal(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Edit</button>
+                                            <form action="#" method="POST" th:action="@{/home/note/delete/{noteid}(noteid=${note.getNoteid()})}">
                                                 <button id="delete-note" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
@@ -104,7 +108,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="#" method="POST" th:action="@{'/home/note'}">
-<!--                                            <input type="hidden" name="noteid" id="note-id">-->
+                                            <input type="hidden" name="noteid" id="note-id">
                                             <div class="form-group">
                                                 <label id="note-title-label" for="note-title" class="col-form-label">Title</label>
                                                 <input type="text" name= "notetitle" class="form-control" id="note-title" maxlength="20" required>

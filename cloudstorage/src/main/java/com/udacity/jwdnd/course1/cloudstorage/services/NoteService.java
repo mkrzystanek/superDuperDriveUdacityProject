@@ -17,8 +17,12 @@ public class NoteService {
         return noteMapper.getAllNotes(userId);
     }
 
-    public int addNote(Note note) {
-        return noteMapper.addNote(note);
+    public void addNote(Note note) {
+        if (note.getNoteid() != null) {
+            noteMapper.updateNote(note);
+        } else {
+            noteMapper.addNote(note);
+        }
     }
 
     public void deleteNote(Integer noteId) {
