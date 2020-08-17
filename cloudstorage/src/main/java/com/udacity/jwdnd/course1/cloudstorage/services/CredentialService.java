@@ -18,6 +18,10 @@ public class CredentialService {
     }
 
     public void addCredential(Credentials credentials) {
-        credentialMapper.addCredential(credentials);
+        if (credentials.getCredentialid() != null) {
+            credentialMapper.updateCredential(credentials);
+        } else {
+            credentialMapper.addCredential(credentials);
+        }
     }
 }

@@ -146,7 +146,14 @@
                                 <tbody>
                                 <tr th:if="${credential}" th:each="credential: ${credentials}" id="credential-list">
                                     <td>
-                                        <button type="button" class="btn btn-success">Edit</button>
+                                        <button type="button" class="btn btn-success"
+                                                th:data1="${credential.getCredentialid()}"
+                                                th:data2="${credential.getUrl()}"
+                                                th:data3="${credential.getUsername()}"
+                                                th:data4="${credential.getPassword()}"
+                                                th:onclick="javascript:showCredentialModal(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'), this.getAttribute('data4'))">
+                                            Edit
+                                        </button>
                                         <a class="btn btn-danger">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
@@ -168,7 +175,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="#" method="POST" th:action="@{'/home/credential'}">
-                                            <input type="hidden" name="credentialId" id="credential-id">
+                                            <input type="hidden" name="credentialid" id="credential-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">URL</label>
                                                 <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
