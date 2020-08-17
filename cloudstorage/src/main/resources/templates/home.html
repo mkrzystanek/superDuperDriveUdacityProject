@@ -154,7 +154,9 @@
                                                 th:onclick="javascript:showCredentialModal(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'), this.getAttribute('data4'))">
                                             Edit
                                         </button>
-                                        <a class="btn btn-danger">Delete</a>
+                                        <form action="#" method="POST" th:action="@{/home/credential/delete/{credentialid}(credentialid=${credential.getCredentialid()})}">
+                                            <button class="btn btn-danger">Delete</button>
+                                        </form>
                                     </td>
                                     <th scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
                                     <td th:text="${credential.getUsername()}">Example Credential Username</td>

@@ -85,4 +85,10 @@ public class HomeController {
         credentialService.addCredential(credentials);
         return getHome(model, auth);
     }
+
+    @PostMapping("/credential/delete/{credentialid}")
+    public String deleteCredential(@PathVariable("credentialid") Integer credentialId, Authentication auth, Model model) {
+        credentialService.deleteCredential(credentialId);
+        return getHome(model, auth);
+    }
 }
