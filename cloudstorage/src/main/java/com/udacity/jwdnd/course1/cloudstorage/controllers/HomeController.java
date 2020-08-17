@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.Credentials;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
@@ -75,6 +76,13 @@ public class HomeController {
     @PostMapping("/note/delete/{noteid}")
     public String deleteNote(@PathVariable("noteid") Integer noteId, Authentication auth, Model model) {
         noteService.deleteNote(noteId);
+        return getHome(model, auth);
+    }
+
+    @PostMapping("/credential")
+    public String addCredential(@ModelAttribute Credentials credentials, Authentication auth, Model model) {
+        credentials.setUserid(userService.getActiveUserId(auth));
+        credentialService.addCredential(credentials);
         return getHome(model, auth);
     }
 }
