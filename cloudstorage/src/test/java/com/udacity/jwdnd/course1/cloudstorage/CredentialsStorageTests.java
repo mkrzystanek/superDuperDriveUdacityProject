@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CredentialsStorageTests extends CloudStorageApplicationTests {
@@ -127,7 +128,7 @@ public class CredentialsStorageTests extends CloudStorageApplicationTests {
         assertTrue(homePage.getUploadedCredentialPassword().isDisplayed(), "Uploaded credential password was not displayed!");
         assertTrue(homePage.getUploadedCredentialUrl().getText().contains(newUrl), "Updated credential url was incorrect!");
         assertTrue(homePage.getUploadedCredentialUsername().getText().contains(newUsername), "Updated credential username was incorrect!");
-        assertTrue(homePage.getUploadedCredentialPassword().getText().contains(newPassword), "Updated credential password was incorrect!");
+        assertFalse(homePage.getUploadedCredentialPassword().getText().contains(newPassword), "Updated credential password was incorrect!");
     }
 
     private void goToCredentialsPanel() {
