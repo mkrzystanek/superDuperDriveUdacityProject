@@ -43,6 +43,9 @@ public class HomePage {
     @FindBy(id = "nav-notes")
     private WebElement notesTabPane;
 
+    @FindBy(id = "nav-credentials")
+    private WebElement credentialsTabPane;
+
     @FindBy(id = "add-new-note")
     private WebElement addNoteButton;
 
@@ -85,6 +88,9 @@ public class HomePage {
     @FindBy(id = "note-list")
     private List<WebElement> notes;
 
+    @FindBy(id = "add-new-credential-button")
+    private WebElement addNewCredentialButton;
+
     private WebDriver driver;
 
     private WebDriverWait wait;
@@ -109,6 +115,10 @@ public class HomePage {
 
     public void waitForNoteModalLoaded() {
         wait.until(driver -> noteModal.isDisplayed());
+    }
+
+    public void waitForCredentialTabLoaded() {
+        wait.until(driver -> credentialsTabPane.isDisplayed());
     }
 
     public WebElement getLogoutButton() {
@@ -209,5 +219,13 @@ public class HomePage {
 
     public List<WebElement> getNotes() {
         return notes;
+    }
+
+    public WebElement getCredentialsTabPane() {
+        return credentialsTabPane;
+    }
+
+    public WebElement getAddNewCredentialButton() {
+        return addNewCredentialButton;
     }
 }
