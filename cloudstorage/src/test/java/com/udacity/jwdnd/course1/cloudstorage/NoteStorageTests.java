@@ -27,12 +27,12 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
 
         loginPage.goToLoginPage(port);
         loginPage.logIn(user);
+
+        goToNotePanel();
     }
 
     @Test
     public void noteTabLayoutTest() {
-        goToNotePanel();
-
         assertTrue(homePage.getAddNoteButton().isDisplayed(), "'Add a New Note' button was not displayed!");
         assertTrue(homePage.getAddNoteButton().getText().contains("Add a New Note"),
                 "Incorrect text was displayed for 'Add a New Note' button!");
@@ -40,13 +40,11 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
 
     @Test
     public void addNoteTest() {
-        goToNotePanel();
-
         homePage.getAddNoteButton().click();
         homePage.waitForNoteModalLoaded();
 
-        assertTrue(homePage.getNoteModal().isDisplayed(), "'Add a New Note' pane was not displayed!");
-        assertTrue(homePage.getNoteModalLabel().isDisplayed(), "'Add a New Note' pane was not displayed!");
+        assertTrue(homePage.getNoteModal().isDisplayed(), "'Add a New Note' modal was not displayed!");
+        assertTrue(homePage.getNoteModalLabel().isDisplayed(), "'Add a New Note' modal was not displayed!");
         assertTrue(homePage.getNoteModalLabel().getText().contains("Note"), "'Incorrect note modal title was displayed!");
         assertTrue(homePage.getNewNoteTitleLabel().isDisplayed(), "Title label was not displayed!");
         assertTrue(homePage.getNewNoteTitleLabel().getText().contains("Title"), "'Incorrect title label text was displayed!");
@@ -54,8 +52,8 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         assertTrue(homePage.getNewNoteDescriptionLabel().getText().contains("Description"), "'Incorrect description label text was displayed!");
         assertTrue(homePage.getNewNoteTitleInput().isDisplayed(), "Note title input was not displayed!");
         assertTrue(homePage.getNewNoteDescriptionInput().isDisplayed(), "Note description input was not displayed!");
-        assertTrue(homePage.getCloseNoteModalButton().isDisplayed(), "Close note modal button input was not displayed!");
-        assertTrue(homePage.getSaveNewNoteButton().isDisplayed(), "Save note button input was not displayed!");
+        assertTrue(homePage.getCloseNoteModalButton().isDisplayed(), "Close note modal button was not displayed!");
+        assertTrue(homePage.getSaveNewNoteButton().isDisplayed(), "Save note button was not displayed!");
 
         homePage.getNewNoteTitleInput().sendKeys("My Note");
         homePage.getNewNoteDescriptionInput().sendKeys("Example text");
@@ -71,7 +69,6 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
 
     @Test
     public void deleteNoteTest() {
-        goToNotePanel();
         homePage.getAddNoteButton().click();
         homePage.waitForNoteModalLoaded();
         homePage.getNewNoteTitleInput().sendKeys("My Note");
@@ -90,7 +87,6 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         String title = "My Note";
         String description = "Example text";
 
-        goToNotePanel();
         homePage.getAddNoteButton().click();
         homePage.waitForNoteModalLoaded();
         homePage.getNewNoteTitleInput().sendKeys(title);

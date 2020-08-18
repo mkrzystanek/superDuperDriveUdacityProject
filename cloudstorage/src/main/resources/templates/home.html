@@ -146,7 +146,7 @@
                                 <tbody>
                                 <tr th:if="${credential}" th:each="credential: ${credentials}" id="credential-list">
                                     <td>
-                                        <button type="button" class="btn btn-success"
+                                        <button id="edit-credential-button" type="button" class="btn btn-success"
                                                 th:data1="${credential.getCredentialid()}"
                                                 th:data2="${credential.getUrl()}"
                                                 th:data3="${credential.getUsername()}"
@@ -155,12 +155,12 @@
                                             Edit
                                         </button>
                                         <form action="#" method="POST" th:action="@{/home/credential/delete/{credentialid}(credentialid=${credential.getCredentialid()})}">
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button id="delete-credential-button" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-                                    <th scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
-                                    <td th:text="${credential.getUsername()}">Example Credential Username</td>
-                                    <td th:text="${credential.getPassword()}">Example Credential Password</td>
+                                    <th id="uploaded-credential-url" scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
+                                    <td id="uploaded-credential-username" th:text="${credential.getUsername()}">Example Credential Username</td>
+                                    <td id="uploaded-credential-password" th:text="${credential.getPassword()}">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -179,23 +179,23 @@
                                         <form action="#" method="POST" th:action="@{'/home/credential'}">
                                             <input type="hidden" name="credentialid" id="credential-id">
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">URL</label>
+                                                <label id="credential-url-label" for="note-title" class="col-form-label">URL</label>
                                                 <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">Username</label>
+                                                <label id="credential-username-label" for="note-title" class="col-form-label">Username</label>
                                                 <input type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">Password</label>
+                                                <label id="credential-password-label" for="note-title" class="col-form-label">Password</label>
                                                 <input type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>
                                             </div>
                                             <button id="credentialSubmit" type="submit" class="d-none"></button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                        <button id="credential-close-button" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button id="credential-save-button" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
                                     </div>
                                 </div>
                             </div>

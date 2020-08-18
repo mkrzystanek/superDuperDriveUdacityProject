@@ -91,6 +91,54 @@ public class HomePage {
     @FindBy(id = "add-new-credential-button")
     private WebElement addNewCredentialButton;
 
+    @FindBy(id = "credentialModal")
+    private WebElement credentialModal;
+
+    @FindBy(id = "credentialModalLabel")
+    private WebElement credentialModalLabel;
+
+    @FindBy(id = "credential-url-label")
+    private WebElement newCredentialUrlLabel;
+
+    @FindBy(id = "credential-url")
+    private WebElement newCredentialUrlInput;
+
+    @FindBy(id = "credential-username-label")
+    private WebElement newCredentialUsernameLabel;
+
+    @FindBy(id = "credential-username")
+    private WebElement newCredentialUsernameInput;
+
+    @FindBy(id = "credential-password-label")
+    private WebElement newCredentialPasswordLabel;
+
+    @FindBy(id = "credential-password")
+    private WebElement newCredentialPasswordInput;
+
+    @FindBy(id = "credential-close-button")
+    private WebElement credentialModalCloseButton;
+
+    @FindBy(id = "credential-save-button")
+    private WebElement credentialModalSaveButton;
+
+    @FindBy(id = "uploaded-credential-url")
+    private WebElement uploadedCredentialUrl;
+
+    @FindBy(id = "uploaded-credential-username")
+    private WebElement uploadedCredentialUsername;
+
+    @FindBy(id = "uploaded-credential-password")
+    private WebElement uploadedCredentialPassword;
+
+    @FindBy(id = "edit-credential-button")
+    private WebElement editCredentialButton;
+
+    @FindBy(id = "delete-credential-button")
+    private WebElement deleteCredentialButton;
+
+    @FindBy(id = "credential-list")
+    private List<WebElement> credentials;
+
     private WebDriver driver;
 
     private WebDriverWait wait;
@@ -119,6 +167,10 @@ public class HomePage {
 
     public void waitForCredentialTabLoaded() {
         wait.until(driver -> credentialsTabPane.isDisplayed());
+    }
+
+    public void waitForCredentialModalLoaded() {
+        wait.until(driver -> credentialModal.isDisplayed());
     }
 
     public WebElement getLogoutButton() {
@@ -227,5 +279,69 @@ public class HomePage {
 
     public WebElement getAddNewCredentialButton() {
         return addNewCredentialButton;
+    }
+
+    public WebElement getCredentialModal() {
+        return credentialModal;
+    }
+
+    public WebElement getCredentialModalLabel() {
+        return credentialModalLabel;
+    }
+
+    public WebElement getNewCredentialUrlLabel() {
+        return newCredentialUrlLabel;
+    }
+
+    public WebElement getNewCredentialUrlInput() {
+        return newCredentialUrlInput;
+    }
+
+    public WebElement getNewCredentialUsernameLabel() {
+        return newCredentialUsernameLabel;
+    }
+
+    public WebElement getNewCredentialUsernameInput() {
+        return newCredentialUsernameInput;
+    }
+
+    public WebElement getNewCredentialPasswordLabel() {
+        return newCredentialPasswordLabel;
+    }
+
+    public WebElement getNewCredentialPasswordInput() {
+        return newCredentialPasswordInput;
+    }
+
+    public WebElement getCredentialModalCloseButton() {
+        return credentialModalCloseButton;
+    }
+
+    public WebElement getCredentialModalSaveButton() {
+        return credentialModalSaveButton;
+    }
+
+    public WebElement getUploadedCredentialUrl() {
+        return uploadedCredentialUrl;
+    }
+
+    public WebElement getUploadedCredentialUsername() {
+        return uploadedCredentialUsername;
+    }
+
+    public WebElement getUploadedCredentialPassword() {
+        return uploadedCredentialPassword;
+    }
+
+    public WebElement getEditCredentialButton() {
+        return editCredentialButton;
+    }
+
+    public WebElement getDeleteCredentialButton() {
+        return deleteCredentialButton;
+    }
+
+    public List<WebElement> getCredentials() {
+        return credentials;
     }
 }
