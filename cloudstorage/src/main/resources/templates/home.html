@@ -147,20 +147,20 @@
                                 <tr th:if="${credential}" th:each="credential: ${credentials}" id="credential-list">
                                     <td>
                                         <button id="edit-credential-button" type="button" class="btn btn-success"
-                                                th:data1="${credential.getCredentialid()}"
-                                                th:data2="${credential.getUrl()}"
-                                                th:data3="${credential.getUsername()}"
-                                                th:data4="${credential.getPassword()}"
+                                                th:data1="${credential.getCredentials().getCredentialid()}"
+                                                th:data2="${credential.getCredentials().getUrl()}"
+                                                th:data3="${credential.getCredentials().getUsername()}"
+                                                th:data4="${credential.getDecryptedPassword()}"
                                                 th:onclick="javascript:showCredentialModal(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'), this.getAttribute('data4'))">
                                             Edit
                                         </button>
-                                        <form action="#" method="POST" th:action="@{/home/credential/delete/{credentialid}(credentialid=${credential.getCredentialid()})}">
+                                        <form action="#" method="POST" th:action="@{/home/credential/delete/{credentialid}(credentialid=${credential.getCredentials().getCredentialid()})}">
                                             <button id="delete-credential-button" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-                                    <th id="uploaded-credential-url" scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
-                                    <td id="uploaded-credential-username" th:text="${credential.getUsername()}">Example Credential Username</td>
-                                    <td id="uploaded-credential-password" th:text="${credential.getPassword()}">Example Credential Password</td>
+                                    <th id="uploaded-credential-url" scope="row" th:text="${credential.getCredentials().getUrl()}">Example Credential URL</th>
+                                    <td id="uploaded-credential-username" th:text="${credential.getCredentials().getUsername()}">Example Credential Username</td>
+                                    <td id="uploaded-credential-password" th:text="${credential.getCredentials().getPassword()}">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>

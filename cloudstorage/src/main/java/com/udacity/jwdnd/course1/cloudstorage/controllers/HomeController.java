@@ -81,7 +81,7 @@ public class HomeController {
 
     @PostMapping("/credential")
     public String addCredential(@ModelAttribute Credentials credentials, Authentication auth, Model model) {
-        String encodedKey = credentialService.getPasswordEncryptionKey();
+        String encodedKey = credentialService.getPasswordEncryptionKey(credentials.getCredentialid());
         String encryptedPassword = credentialService.encryptPassword(credentials.getPassword(), encodedKey);
 
         credentials.setUserid(userService.getActiveUserId(auth));
