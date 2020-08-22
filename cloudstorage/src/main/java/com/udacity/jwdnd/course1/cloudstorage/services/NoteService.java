@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -17,11 +18,21 @@ public class NoteService {
         return noteMapper.getAllNotes(userId);
     }
 
-    public void addNote(Note note) {
-        if (note.getNoteid() != null) {
-            noteMapper.updateNote(note);
-        } else {
+    public boolean addNote(Note note) {
+        try {
             noteMapper.addNote(note);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean updateNote(Note note) {
+        try {
+            noteMapper.updateNote(note);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

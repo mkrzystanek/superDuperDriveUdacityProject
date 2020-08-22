@@ -69,8 +69,18 @@ public class HomeController {
     @PostMapping("/note")
     public String addNote(@ModelAttribute Note note, Authentication auth, Model model) {
         note.setUserid(userService.getActiveUserId(auth));
-        noteService.addNote(note);
-        return getHome(model, auth);
+
+        if (note.getNoteid() != null) {
+            if (!noteService.updateNote(note)) {
+                model.addAttribute("updateError", "Failed to update note.");
+            }
+        } else {
+            if (!noteService.addNote(note)) {
+                model.addAttribute("addError", "Failed to save note.");
+            }
+        }
+
+        return "result";
     }
 
     @PostMapping("/note/delete/{noteid}")
