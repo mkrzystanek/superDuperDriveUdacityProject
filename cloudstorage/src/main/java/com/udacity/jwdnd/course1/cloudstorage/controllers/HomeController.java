@@ -72,11 +72,11 @@ public class HomeController {
 
         if (note.getNoteid() != null) {
             if (!noteService.updateNote(note)) {
-                model.addAttribute("updateError", "Failed to update note.");
+                model.addAttribute("genericError", "Failed to update note.");
             }
         } else {
             if (!noteService.addNote(note)) {
-                model.addAttribute("addError", "Failed to save note.");
+                model.addAttribute("addError");
             }
         }
 
@@ -84,9 +84,11 @@ public class HomeController {
     }
 
     @PostMapping("/note/delete/{noteid}")
-    public String deleteNote(@PathVariable("noteid") Integer noteId, Authentication auth, Model model) {
-        noteService.deleteNote(noteId);
-        return getHome(model, auth);
+    public String deleteNote(@PathVariable("noteid") Integer noteId, Model model) {
+        if(!noteService.deleteNote(noteId)) {
+            model.addAttribute("genericError", "Failed to delete a note.");
+        }
+        return "result";
     }
 
     @PostMapping("/credential")
@@ -98,8 +100,16 @@ public class HomeController {
         credentials.setKey(encodedKey);
         credentials.setPassword(encryptedPassword);
 
-        credentialService.addCredential(credentials);
-        return getHome(model, auth);
+        if (credentials.getCredentialid() != null) {
+            if (!credentialService.updateCredential(credentials)) {
+                model.addAttribute("genericError", "Failed to update credential.");
+            }
+        } else {
+            if(!credentialService.addCredential(credentials)) {
+                model.addAttribute("addError");
+            }
+        }
+        return "result";
     }
 
     @PostMapping("/credential/delete/{credentialid}")

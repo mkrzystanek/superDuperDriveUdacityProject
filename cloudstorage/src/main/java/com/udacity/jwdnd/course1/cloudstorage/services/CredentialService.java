@@ -25,11 +25,21 @@ public class CredentialService {
                 .collect(Collectors.toList());
     }
 
-    public void addCredential(Credentials credentials) {
-        if (credentials.getCredentialid() != null) {
-            credentialMapper.updateCredential(credentials);
-        } else {
+    public boolean addCredential(Credentials credentials) {
+        try {
             credentialMapper.addCredential(credentials);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean updateCredential(Credentials credentials) {
+        try {
+            credentialMapper.updateCredential(credentials);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

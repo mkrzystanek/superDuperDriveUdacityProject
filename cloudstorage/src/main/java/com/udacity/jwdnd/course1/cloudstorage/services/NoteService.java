@@ -36,7 +36,12 @@ public class NoteService {
         }
     }
 
-    public void deleteNote(Integer noteId) {
-        noteMapper.deleteNote(noteId);
+    public boolean deleteNote(Integer noteId) {
+        try {
+            noteMapper.deleteNote(noteId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
