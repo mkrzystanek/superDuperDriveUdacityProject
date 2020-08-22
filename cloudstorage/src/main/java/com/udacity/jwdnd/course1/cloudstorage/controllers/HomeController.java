@@ -114,7 +114,9 @@ public class HomeController {
 
     @PostMapping("/credential/delete/{credentialid}")
     public String deleteCredential(@PathVariable("credentialid") Integer credentialId, Authentication auth, Model model) {
-        credentialService.deleteCredential(credentialId);
-        return getHome(model, auth);
+        if (!credentialService.deleteCredential(credentialId)) {
+            model.addAttribute("genericError", "Failed to delete credential.");
+        }
+        return "result";
     }
 }

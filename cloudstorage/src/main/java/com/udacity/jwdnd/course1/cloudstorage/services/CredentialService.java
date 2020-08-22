@@ -43,8 +43,13 @@ public class CredentialService {
         }
     }
 
-    public void deleteCredential(Integer credentialId) {
-        credentialMapper.deleteCredential(credentialId);
+    public boolean deleteCredential(Integer credentialId) {
+        try {
+            credentialMapper.deleteCredential(credentialId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String getPasswordEncryptionKey(Integer credentialId) {
