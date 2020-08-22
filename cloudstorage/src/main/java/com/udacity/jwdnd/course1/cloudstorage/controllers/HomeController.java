@@ -45,8 +45,18 @@ public class HomeController {
     }
 
     @PostMapping("/file")
-    public String uploadFile(@RequestParam("fileUpload") MultipartFile file, Authentication auth, Model model) {
-        if(!fileService.save(file, userService.getActiveUserId(auth))) {
+    public String uploadFile(@RequestParam("fileUpload") MultipartFile multipartFile, Authentication auth, Model model) {
+        Integer activeUserId = userService.getActiveUserId(auth);
+
+        boolean isNameTaken = fileService.getAllFiles(activeUserId).stream()
+                .anyMatch((file) -> file.getFilename().equals(multipartFile.getOriginalFilename()));
+
+        if (isNameTaken) {
+            model.addAttribute("genericError", "Failed to save file. A file with this name is already uploaded.");
+            return "result";
+        }
+
+        if(!fileService.save(multipartFile, activeUserId)) {
             model.addAttribute("addError");
         }
         return "result";
