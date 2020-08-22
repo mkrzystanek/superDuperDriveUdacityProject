@@ -46,8 +46,10 @@ public class HomeController {
 
     @PostMapping("/file")
     public String uploadFile(@RequestParam("fileUpload") MultipartFile file, Authentication auth, Model model) {
-        fileService.save(file, userService.getActiveUserId(auth));
-        return getHome(model, auth);
+        if(!fileService.save(file, userService.getActiveUserId(auth))) {
+            model.addAttribute("addError");
+        }
+        return "result";
     }
 
     @GetMapping("/file/{fileid}")
@@ -62,8 +64,10 @@ public class HomeController {
 
     @PostMapping("/file/{fileid}")
     public String deleteFile(@PathVariable("fileid") Integer fileId, Authentication auth, Model model) {
-        fileService.delete(fileId);
-        return getHome(model, auth);
+        if(!fileService.delete(fileId)) {
+            model.addAttribute("genericError", "Failed to delete file.");
+        }
+        return "result";
     }
 
     @PostMapping("/note")
