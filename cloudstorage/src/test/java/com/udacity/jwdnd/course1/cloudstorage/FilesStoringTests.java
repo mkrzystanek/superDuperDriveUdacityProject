@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,6 +64,8 @@ public class FilesStoringTests extends CloudStorageApplicationTests {
 
         homePage.getFileUploadInput().sendKeys(fileToUpload.getAbsolutePath());
         homePage.getFileUploadButton().submit();
+        exitResultPage();
+
         assertTrue(homePage.getViewFileButton().isDisplayed(), "View file button was not displayed!");
         assertTrue(homePage.getDeleteFileButton().isDisplayed(), "Delete file button was not displayed!");
         List<WebElement> uploadedFiles = homePage.getFiles();
@@ -72,7 +73,8 @@ public class FilesStoringTests extends CloudStorageApplicationTests {
         assertTrue(uploadedFiles.get(0).getText().contains(fileToUpload.getName()), "Incorrect file name was displayed!");
 
         homePage.getDeleteFileButton().submit();
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        exitResultPage();
+
         uploadedFiles = homePage.getFiles();
         assertEquals(0, uploadedFiles.size(), "Uploaded file is still visible after 'delete' button was clicked!");
     }

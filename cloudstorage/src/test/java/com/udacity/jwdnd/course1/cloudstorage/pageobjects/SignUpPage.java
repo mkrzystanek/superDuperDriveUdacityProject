@@ -55,7 +55,7 @@ public class SignUpPage {
     public SignUpPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, 1);
+        wait = new WebDriverWait(driver, 3);
     }
 
     public void goToSignUpPage(int port) {

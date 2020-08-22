@@ -5,8 +5,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NoteStorageTests extends CloudStorageApplicationTests {
 
@@ -59,6 +58,7 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         homePage.getNewNoteDescriptionInput().sendKeys("Example text");
         homePage.getSaveNewNoteButton().click();
 
+        exitResultPage();
         goToNotePanel();
 
         assertTrue(homePage.getUploadedNoteTitle().isDisplayed(), "Uploaded note title was not displayed!");
@@ -74,6 +74,8 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         homePage.getNewNoteTitleInput().sendKeys("My Note");
         homePage.getNewNoteDescriptionInput().sendKeys("Example text");
         homePage.getSaveNewNoteButton().click();
+
+        exitResultPage();
         goToNotePanel();
 
         homePage.getDeleteNoteButton().submit();
@@ -83,7 +85,7 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
     }
 
     @Test
-    public void editNoteTest() throws InterruptedException {
+    public void editNoteTest() {
         String title = "My Note";
         String description = "Example text";
 
@@ -92,6 +94,8 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         homePage.getNewNoteTitleInput().sendKeys(title);
         homePage.getNewNoteDescriptionInput().sendKeys(description);
         homePage.getSaveNewNoteButton().click();
+
+        exitResultPage();
         goToNotePanel();
 
         homePage.getEditNoteButton().click();
@@ -108,6 +112,8 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         homePage.getNewNoteTitleInput().sendKeys(newTitle);
         homePage.getNewNoteDescriptionInput().sendKeys(newDescription);
         homePage.getSaveNewNoteButton().click();
+
+        exitResultPage();
         goToNotePanel();
 
         assertTrue(homePage.getUploadedNoteTitle().isDisplayed(), "Updated note title was not displayed!");
@@ -123,4 +129,5 @@ public class NoteStorageTests extends CloudStorageApplicationTests {
         homePage.getNotesTab().click();
         homePage.waitForNoteTabLoaded();
     }
+
 }

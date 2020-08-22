@@ -64,6 +64,7 @@ public class CredentialsStorageTests extends CloudStorageApplicationTests {
         homePage.getNewCredentialPasswordInput().sendKeys("pazzw0rd");
         homePage.getCredentialModalSaveButton().click();
 
+        exitResultPage();
         goToCredentialsPanel();
 
         assertTrue(homePage.getUploadedCredentialUrl().isDisplayed(), "Uploaded credential url was not displayed!");
@@ -81,9 +82,12 @@ public class CredentialsStorageTests extends CloudStorageApplicationTests {
         homePage.getNewCredentialUsernameInput().sendKeys("Bobby");
         homePage.getNewCredentialPasswordInput().sendKeys("pazzw0rd");
         homePage.getCredentialModalSaveButton().click();
+
+        exitResultPage();
         goToCredentialsPanel();
 
         homePage.getDeleteCredentialButton().submit();
+        exitResultPage();
         goToCredentialsPanel();
 
         assertEquals(0, homePage.getCredentials().size(), "Deleted credential was displayed!");
@@ -101,6 +105,8 @@ public class CredentialsStorageTests extends CloudStorageApplicationTests {
         homePage.getNewCredentialUsernameInput().sendKeys(username);
         homePage.getNewCredentialPasswordInput().sendKeys(password);
         homePage.getCredentialModalSaveButton().click();
+
+        exitResultPage();
         goToCredentialsPanel();
 
         homePage.getEditCredentialButton().click();
@@ -121,6 +127,8 @@ public class CredentialsStorageTests extends CloudStorageApplicationTests {
         homePage.getNewCredentialUsernameInput().sendKeys(newUsername);
         homePage.getNewCredentialPasswordInput().sendKeys(newPassword);
         homePage.getCredentialModalSaveButton().click();
+
+        exitResultPage();
         goToCredentialsPanel();
 
         assertTrue(homePage.getUploadedCredentialUrl().isDisplayed(), "Updated credential url was not displayed!");

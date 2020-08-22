@@ -146,7 +146,7 @@ public class HomePage {
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 1);
+        this.wait = new WebDriverWait(driver, 3);
     }
 
     public void goToHomePage(int port) {
