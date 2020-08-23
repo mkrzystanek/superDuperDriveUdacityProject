@@ -56,9 +56,10 @@ public class HomeController {
             return "result";
         }
 
-        if(!fileService.save(multipartFile, activeUserId)) {
+        if (!fileService.save(multipartFile, activeUserId)) {
             model.addAttribute("addError");
         }
+
         return "result";
     }
 
@@ -73,8 +74,8 @@ public class HomeController {
     }
 
     @PostMapping("/file/{fileid}")
-    public String deleteFile(@PathVariable("fileid") Integer fileId, Authentication auth, Model model) {
-        if(!fileService.delete(fileId)) {
+    public String deleteFile(@PathVariable("fileid") Integer fileId, Model model) {
+        if (!fileService.delete(fileId)) {
             model.addAttribute("genericError", "Failed to delete file.");
         }
         return "result";
@@ -99,7 +100,7 @@ public class HomeController {
 
     @PostMapping("/note/delete/{noteid}")
     public String deleteNote(@PathVariable("noteid") Integer noteId, Model model) {
-        if(!noteService.deleteNote(noteId)) {
+        if (!noteService.deleteNote(noteId)) {
             model.addAttribute("genericError", "Failed to delete a note.");
         }
         return "result";
@@ -119,7 +120,7 @@ public class HomeController {
                 model.addAttribute("genericError", "Failed to update credential.");
             }
         } else {
-            if(!credentialService.addCredential(credentials)) {
+            if (!credentialService.addCredential(credentials)) {
                 model.addAttribute("addError");
             }
         }
@@ -127,7 +128,7 @@ public class HomeController {
     }
 
     @PostMapping("/credential/delete/{credentialid}")
-    public String deleteCredential(@PathVariable("credentialid") Integer credentialId, Authentication auth, Model model) {
+    public String deleteCredential(@PathVariable("credentialid") Integer credentialId, Model model) {
         if (!credentialService.deleteCredential(credentialId)) {
             model.addAttribute("genericError", "Failed to delete credential.");
         }

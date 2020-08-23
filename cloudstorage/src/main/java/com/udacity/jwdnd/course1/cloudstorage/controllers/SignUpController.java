@@ -35,6 +35,7 @@ public class SignUpController {
                     userService.createUser(user);
                     model.addAttribute("signupSuccess", true);
                 });
+        
         return "signup";
     }
 }
