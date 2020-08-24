@@ -52,10 +52,7 @@ public class SignUpAndLoginTests extends CloudStorageApplicationTests {
         signUpPage.goToSignUpPage(this.port);
         signUpPage.signUp(user);
 
-        assertTrue(signUpPage.getSuccessMessage().isDisplayed(),
-                "Success message was not present on sign up page!");
-
-        signUpPage.gotToLogin();
+        loginPage.waitForLoaded();
         loginPage.logIn(user);
         homePage.waitForLoaded();
 

@@ -27,15 +27,13 @@ public class SignUpController {
     @PostMapping
     public String signUp(@ModelAttribute User user, Model model) {
 
-        Optional<User> optionalUser = Optional.ofNullable(userService.getUser(user.getUsername()));
+        if (userService.getUser(user.getUsername()) == null) {
+            userService.createUser(user);
+            model.addAttribute("signupSuccess", true);
+            return "login";
+        }
 
-        optionalUser.ifPresentOrElse(
-                existingUser -> model.addAttribute("signupError", "User already exists!"),
-                () -> {
-                    userService.createUser(user);
-                    model.addAttribute("signupSuccess", true);
-                });
-        
+        model.addAttribute("signupError", "User already exists!");
         return "signup";
     }
 }
